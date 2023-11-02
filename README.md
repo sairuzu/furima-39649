@@ -7,9 +7,11 @@
 | email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
 | nickname           | string   | null: false, unique: true |
-| name               | string   | null: false               |
-| name_kana          | string   | null: false               |
-| birth_date         | datetime | null: false               |
+| last_name          | string   | null: false               |
+| first_name         | string   | null: false               |
+| last_name_kana     | string   | null: false               |
+| first_name_kana    | string   | null: false               |
+| birth_date         | date     | null: false               |
 
 ### Association
 
@@ -24,20 +26,28 @@
 | --------------------- | ------------ | ------------------------------ |
 | product_name          | string       | null: false                    |
 | product_description   | text         | null: false                    |
-| category              | string       | null: false                    |
-| product_condition     | string       | null: false                    |
-| delivery_charge       | string       | null: false                    |
-| shipping_source       | string       | null: false                    |
-| date_shipment         | datetime     | null: false                    |
+| genre_id              | integer      | null: false                    |
 | price                 | integer      | null: false                    |
-| nickname              | references   | null: false, foreign_key: true |
+| user                  | references   | null: false, foreign_key: true |
 
 ### Association
 
 - has_many :users
 - has_many :comments
+- belong_to :genre
 - has_one :purchases
 - has_one :shippings
+
+## genre テーブル
+
+| Column             | Type         | Options                        |
+| ------------------ | ------------ | ------------------------------ |
+| id                 | integer      | null: false                    |
+
+### Association
+
+- has_many :items
+- has_many :shippings
 
 ## comments テーブル
 
@@ -45,7 +55,7 @@
 | ------------------ | ------------ | ------------------------------ |
 | content            | text         | null: false                    |
 | item               | reference    | null: false, foreign_key: true |
-| nickname           | reference    | null: false, foreign_key: true |
+| user               | reference    | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :items
@@ -55,8 +65,8 @@
 
 | Column             | Type         | Options                        |
 | ------------------ | ------------ | ------------------------------ |
-| product_name       | reference    | null: false, foreign_key: true |
-| nickname           | reference    | null: false, foreign_key: true |
+| item               | reference    | null: false, foreign_key: true |
+| user               | reference    | null: false, foreign_key: true |
 
 ### Association
 - has_many :items
@@ -67,16 +77,17 @@
 
 | Column                | Type         | Options                        |
 | --------------------- | ------------ | ------------------------------ |
-| post_code             | integer      | null: false                    |
-| prefectures           | string       | null: false                    |
+| post_code             | string       | null: false                    |
+| genre_id              | integer      | null: false                    |
 | municipalities        | string       | null: false                    |
-| street_address        | text         | null: false                    |
-| building_name         | text         |                                |
-| telephone_number      | integer      | null: false                    |
-| name                  | reference    | null: false, foreign_key: true |
+| street_address        | string       | null: false                    |
+| building_name         | string       |                                |
+| telephone_number      | string       | null: false                    |
+| purchase              | reference    | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - has_many :items
 - has_many :purchases
+- belong_to :genre
