@@ -6,7 +6,7 @@
 | ------------------ | ------   |-------------------------- |
 | email              | string   | null: false, unique: true |
 | encrypted_password | string   | null: false               |
-| nickname           | string   | null: false, unique: true |
+| nickname           | string   | null: false               |
 | last_name          | string   | null: false               |
 | first_name         | string   | null: false               |
 | last_name_kana     | string   | null: false               |
@@ -29,6 +29,7 @@
 | genre_id              | integer      | null: false                    |
 | price                 | integer      | null: false                    |
 | user                  | references   | null: false, foreign_key: true |
+| image                 | string       | null: false                    |
 
 ### Association
 
@@ -36,18 +37,7 @@
 - has_many :comments
 - belong_to :genre
 - has_one :purchases
-- has_one :shippings
-
-## genre テーブル
-
-| Column             | Type         | Options                        |
-| ------------------ | ------------ | ------------------------------ |
-| id                 | integer      | null: false                    |
-
-### Association
-
-- has_many :items
-- has_many :shippings
+- belongs_to :shippings
 
 ## comments テーブル
 
@@ -69,16 +59,16 @@
 | user               | reference    | null: false, foreign_key: true |
 
 ### Association
-- has_many :items
+- has_one :items
 - belongs_to :user
-- belongs_to :shippings
+- has-one :shippings
 
 ## shippings テーブル
 
 | Column                | Type         | Options                        |
 | --------------------- | ------------ | ------------------------------ |
 | post_code             | string       | null: false                    |
-| genre_id              | integer      | null: false                    |
+| genre_id              | String       | null: false                    |
 | municipalities        | string       | null: false                    |
 | street_address        | string       | null: false                    |
 | building_name         | string       |                                |
@@ -89,5 +79,5 @@
 
 - belongs_to :user
 - has_many :items
-- has_many :purchases
+- belongs_to :purchases
 - belong_to :genre
