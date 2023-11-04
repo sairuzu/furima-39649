@@ -18,7 +18,6 @@
 - has_many :items
 - has_many :comments
 - has_many :purchases
-- has_one :shippings
 
 ## items テーブル
 
@@ -26,18 +25,19 @@
 | --------------------- | ------------ | ------------------------------ |
 | product_name          | string       | null: false                    |
 | product_description   | text         | null: false                    |
-| genre_id              | integer      | null: false                    |
+| genre_id(prefectures) | integer      | null: false                    |
 | price                 | integer      | null: false                    |
 | user                  | references   | null: false, foreign_key: true |
-| image                 | string       | null: false                    |
+| commission            | integer      | null: false                    |
+| sales_profit          | integer      | null: false                    |
 
 ### Association
 
-- has_many :users
+- belongs_to :user
 - has_many :comments
-- belong_to :genre
-- has_one :purchases
-- belongs_to :shippings
+- belongs_to :genre
+- has_one :purchase
+
 
 ## comments テーブル
 
@@ -48,7 +48,7 @@
 | user               | reference    | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :items
+- belongs_to :item
 - belongs_to :user
 
 ## purchases テーブル
@@ -59,16 +59,16 @@
 | user               | reference    | null: false, foreign_key: true |
 
 ### Association
-- has_one :items
+- belongs_to :item
 - belongs_to :user
-- has-one :shippings
+- has_one :shipping
 
 ## shippings テーブル
 
 | Column                | Type         | Options                        |
 | --------------------- | ------------ | ------------------------------ |
 | post_code             | string       | null: false                    |
-| genre_id              | String       | null: false                    |
+| genre_id(prefectures) | integer      | null: false                    |
 | municipalities        | string       | null: false                    |
 | street_address        | string       | null: false                    |
 | building_name         | string       |                                |
@@ -77,7 +77,4 @@
 
 ### Association
 
-- belongs_to :user
-- has_many :items
-- belongs_to :purchases
-- belong_to :genre
+- belongs_to :purchase
