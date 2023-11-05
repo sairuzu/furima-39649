@@ -25,9 +25,13 @@
 | --------------------- | ------------ | ------------------------------ |
 | product_name          | string       | null: false                    |
 | product_description   | text         | null: false                    |
-| genre_id(prefectures) | integer      | null: false                    |
+| category_id           | integer      | null: false                    |
+| product_condition_id  | integer      | null: false                    |
+| delivery_charge_id    | integer      | null: false                    |
+| prefecture_id         | integer      | null: false                    |
+| shipping_day_id       | integer      | null: false                    |
 | price                 | integer      | null: false                    |
-| user                  | references   | null: false, foreign_key: true |
+| user                  | referencess  | null: false, foreign_key: true |
 | commission            | integer      | null: false                    |
 | sales_profit          | integer      | null: false                    |
 
@@ -35,7 +39,11 @@
 
 - belongs_to :user
 - has_many :comments
-- belongs_to :genre
+  belongs_to :category
+  belongs_to :product_condition
+  belongs_to :delivery_charge
+  belongs_to :prefecture
+  belongs_to :shipping_day
 - has_one :purchase
 
 
@@ -44,8 +52,8 @@
 | Column             | Type         | Options                        |
 | ------------------ | ------------ | ------------------------------ |
 | content            | text         | null: false                    |
-| item               | reference    | null: false, foreign_key: true |
-| user               | reference    | null: false, foreign_key: true |
+| item               | references   | null: false, foreign_key: true |
+| user               | references   | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
@@ -55,8 +63,8 @@
 
 | Column             | Type         | Options                        |
 | ------------------ | ------------ | ------------------------------ |
-| item               | reference    | null: false, foreign_key: true |
-| user               | reference    | null: false, foreign_key: true |
+| item               | references   | null: false, foreign_key: true |
+| user               | references   | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
@@ -68,7 +76,7 @@
 | Column                | Type         | Options                        |
 | --------------------- | ------------ | ------------------------------ |
 | post_code             | string       | null: false                    |
-| genre_id(prefectures) | integer      | null: false                    |
+| prefecture_id         | integer      | null: false                    |
 | municipalities        | string       | null: false                    |
 | street_address        | string       | null: false                    |
 | building_name         | string       |                                |
@@ -76,5 +84,4 @@
 | purchase              | reference    | null: false, foreign_key: true |
 
 ### Association
-
 - belongs_to :purchase
