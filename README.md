@@ -31,9 +31,8 @@
 | prefecture_id         | integer      | null: false                    |
 | shipping_day_id       | integer      | null: false                    |
 | price                 | integer      | null: false                    |
-| user                  | referencess  | null: false, foreign_key: true |
-| commission            | integer      | null: false                    |
-| sales_profit          | integer      | null: false                    |
+| user                  | references   | null: false, foreign_key: true |
+
 
 ### Association
 
@@ -81,7 +80,7 @@
 | street_address        | string       | null: false                    |
 | building_name         | string       |                                |
 | telephone_number      | string       | null: false                    |
-| purchase              | reference    | null: false, foreign_key: true |
+| purchase              | references    | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
