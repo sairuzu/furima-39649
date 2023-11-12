@@ -1,4 +1,0 @@
-class Item < ApplicationRecord
-  
-
-end
