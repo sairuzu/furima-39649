@@ -44,6 +44,27 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
+      it '英字のみのパスワードでは登録できない' do
+      @user.password = 'aaabbb'
+      @user.password_confirmation = 'aaabbb'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+
+      it '数字のみのパスワードでは登録できない' do
+      @user.password = '000111'
+      @user.password_confirmation = '000111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+      
+      it '全角文字を含むパスワードでは登録できない' do
+      @user.password = 'ｔｔｔ111'
+      @user.password_confirmation = 'ｔｔｔ111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+
       it '重複したemailが存在する場合は登録できない' do
       @user.save
       another_user = FactoryBot.build(:user, email: @user.email)
@@ -109,6 +130,12 @@ RSpec.describe User, type: :model do
       @user.password = '000000'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+
+      it '生年月日が空だと登録できない' do
+      @user.birth_date = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Birth date can't be blank")
       end
     end
   end
