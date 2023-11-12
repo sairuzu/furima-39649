@@ -1,4 +1,4 @@
 class Category < ActiveHash::Base
   
 
-  end
+end
