@@ -15,11 +15,11 @@ class Item < ApplicationRecord
 
   validates :product_name, presence: true
   validates :product_description, presence: true
-  validates :category_id, presence: true, numericality: { other_than: 0 } 
-  validates :product_condition_id, presence: true, numericality: { other_than: 0 }
-  validates :delivery_charge_id, presence: true, numericality: { other_than: 0 }
-  validates :prefecture_id, presence: true, numericality: { other_than: 0 }
-  validates :shipping_day_id, presence: true, numericality: { other_than: 0 }
+  validates :category_id, presence: true 
+  validates :product_condition_id, presence: true
+  validates :delivery_charge_id, presence: true
+  validates :prefecture_id, presence: true
+  validates :shipping_day_id, presence: true
   
   with_options presence: true, format: { with: /\A[0-9]+\z/, message: '半角数値のみを使用してください' } do
     validates :price
@@ -31,5 +31,11 @@ class Item < ApplicationRecord
   }
   
   validates :image, presence: true
+  def was_attached?
+    self.image.attached?
+  end
 
 end
+
+
+# , numericality: { other_than: 0 }

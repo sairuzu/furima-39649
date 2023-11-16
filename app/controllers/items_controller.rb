@@ -9,10 +9,10 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @categories = Category.all
-    @product_conditions = Product_condition.all
-    @delivery_charges = Delivery_charge.all
+    @product_conditions = ProductCondition.all
+    @delivery_charges = DeliveryCharge.all
     @prefectures = Prefecture.all
-    @shipping_days = Shipping_day.all
+    @shipping_days = ShippingDay.all
   end
 
   def create
