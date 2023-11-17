@@ -15,11 +15,11 @@ class Item < ApplicationRecord
 
   validates :product_name, presence: true
   validates :product_description, presence: true
-  validates :category_id, presence: true 
-  validates :product_condition_id, presence: true
-  validates :delivery_charge_id, presence: true
-  validates :prefecture_id, presence: true
-  validates :shipping_day_id, presence: true
+  validates :category_id, presence: true, exclusion: { in: ['---'] }
+  validates :product_condition_id, presence: true, exclusion: { in: ['---'] }
+  validates :delivery_charge_id, presence: true, exclusion: { in: ['---'] }
+  validates :prefecture_id, presence: true, exclusion: { in: ['---'] }
+  validates :shipping_day_id, presence: true, exclusion: { in: ['---'] }
   
   with_options presence: true, format: { with: /\A[0-9]+\z/, message: '半角数値のみを使用してください' } do
     validates :price
