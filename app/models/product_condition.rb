@@ -5,12 +5,10 @@ class ProductCondition < ActiveHash::Base
     { id: 3, name: '目立った傷や汚れなし' },
     { id: 4, name: 'やや傷や汚れあり' },
     { id: 5, name: '傷や汚れあり' },
-    { id: 6, name: '全体的に状態が悪い' },
+    { id: 6, name: '全体的に状態が悪い' }
   ]
 
   include ActiveHash::Associations
   has_many :items
   # has_many :shippings
-
-
 end
