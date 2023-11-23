@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :set_item, except: %i[index new create show]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_item, only: [:show, :edit, :update]
+  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
 
   def index
     # @items = Item.includes(:user)
@@ -27,8 +28,18 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     @user = @item.user
+  end
+
+  def edit
+  end
+  
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item) 
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
@@ -41,4 +52,9 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
+  def contributor_confirmation
+    redirect_to root_path unless @item && current_user == @item.user
+  end
+
 end
