@@ -17,7 +17,7 @@
 
 - has_many :items
 - has_many :comments
-- has_many :purchases
+- has_many :order
 
 ## items テーブル
 
@@ -38,12 +38,12 @@
 
 - belongs_to :user
 - has_many :comments
-  belongs_to :category
-  belongs_to :product_condition
-  belongs_to :delivery_charge
-  belongs_to :prefecture
-  belongs_to :shipping_day
-- has_one :purchase
+- belongs_to :category
+- belongs_to :product_condition
+- belongs_to :delivery_charge
+- belongs_to :prefecture
+- belongs_to :shipping_day
+- has_one :order
 
 
 ## comments テーブル
@@ -58,7 +58,7 @@
 - belongs_to :item
 - belongs_to :user
 
-## purchases テーブル
+## orders テーブル
 
 | Column             | Type         | Options                        |
 | ------------------ | ------------ | ------------------------------ |
@@ -83,4 +83,4 @@
 | purchase              | references    | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :purchase
+- belongs_to :order

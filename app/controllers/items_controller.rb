@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_item, only: %i[show edit update destroy]
+  before_action :contributor_confirmation, only: %i[edit update destroy]
 
   def index
     # @items = Item.includes(:user)
@@ -31,12 +31,11 @@ class ItemsController < ApplicationController
     @user = @item.user
   end
 
-  def edit
-  end
-  
+  def edit; end
+
   def update
     if @item.update(item_params)
-      redirect_to item_path(@item) 
+      redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -64,5 +63,4 @@ class ItemsController < ApplicationController
   def contributor_confirmation
     redirect_to root_path unless @item && current_user == @item.user
   end
-
 end
