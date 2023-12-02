@@ -1,23 +1,25 @@
-<%= render "shared/second-header"%>
 
+<%= render "shared/second-header"%>
+<%= include_gon %>
 <div class='transaction-contents'>
   <div class='transaction-main'>
     <h1 class='transaction-title-text'>
       購入内容の確認
     </h1>
     <%# 購入内容の表示 %>
-    <%# <%= form_with model: @order, url: orders_path, local: true do |f| %> 
-    <% @items.each do |item| %>
-    <%# <%= render 'error_messages', model: @order %>  
+   
+    <%= form_with id: 'charge-form', class: 'transaction-form-wrap', model: [@item, @order_shipping], url: item_orders_path(@item), local: true, data: { turbo: false } do |f| %>
+     <%= render 'shared/error_messages', model: @order_shipping %>
+
     <div class='buy-item-info'>
-      <%= image_tag item.image, class: 'buy-item-img' %>
+      <%= image_tag @item.image, class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
-          <%= item.product_name %>
+          <%= @item.product_name %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= item.price %></p>
-          <p class='item-price-sub-text'><%= item.delivery_charge.name %></p>
+          <p class='item-price-text'>¥<%= @item.price %></p>
+          <p class='item-price-sub-text'><%= @item.delivery_charge.name %></p>
         </div>
       </div>
     </div>
@@ -30,13 +32,13 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= "price" %>
+        ¥<%= @item.price %>
       </p>
     </div>
-    <% end %>
+    
     <%# /支払額の表示 %>
 
-    <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %> 
+    <%# <%= form_with id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %> 
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -112,7 +114,7 @@
           <label class="form-text">建物名</label>
           <span class="form-any">任意</span>
         </div>
-        <%= f.text_field :buliding_name, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
+        <%= f.text_field :building_name, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>

@@ -32,6 +32,11 @@ class Item < ApplicationRecord
   def was_attached?
     image.attached?
   end
+
+  def sold_out?
+    sold.present? && sold
+  end
+  
 end
 
 # , numericality: { other_than: 0 }

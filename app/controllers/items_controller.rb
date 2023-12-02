@@ -19,7 +19,6 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-
     if @item.save
       redirect_to root_path
     else
@@ -31,7 +30,12 @@ class ItemsController < ApplicationController
     @user = @item.user
   end
 
-  def edit; end
+  def edit
+    if Order.item_purchased?(@item) || (current_user && current_user.id != @item.user_id)
+      redirect_to root_path
+      return
+    end
+  end
 
   def update
     if @item.update(item_params)

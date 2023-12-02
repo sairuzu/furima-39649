@@ -2,7 +2,7 @@ class Shipping < ApplicationRecord
   # extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to :order
-  belongs_to :prefecture
+  
 
   # validates :post_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
   # validates :prefecture_id, presence: true, exclusion: { in: ['---'], message: "can't be blank" }
