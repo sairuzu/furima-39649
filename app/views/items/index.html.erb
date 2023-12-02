@@ -134,14 +134,11 @@
         <div class='item-img-content'>
           <%= image_tag item.image, alt: "Product Image", class: "item-img" if item.image.attached?%>
       
-
-          <%# 商品が売れていればsold outを表示しましょう %>
-          <%# <% if @item.sold_out? %>
-          <%# <div class='sold-out'>
+          <% if Order.item_purchased?(item) %>
+          <div class='sold-out'>
             <span>Sold Out!!</span>
-          </div> %>
-          <%# <% end %> 
-          <%# //商品が売れていればsold outを表示しましょう %>
+          </div> 
+          <% end %> 
 
         </div>
         <div class='item-info'>
@@ -186,7 +183,7 @@
   </div>
   <%# /商品一覧 %>
 </div>
-<%= link_to(new_item_path, class: 'purchase-btn') do %>
+<%= link_to(new_item_path, class: 'purchase-btn', data: { turbo: false }) do %>
   <span class='purchase-btn-text'>出品する</span>
   <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
 <% end %>

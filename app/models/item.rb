@@ -10,7 +10,7 @@ class Item < ApplicationRecord
 
   has_one_attached :image
   # has_many :comments
-  # has_one :purchase
+  has_one :order
 
   validates :product_name, presence: true
   validates :product_description, presence: true
@@ -32,6 +32,11 @@ class Item < ApplicationRecord
   def was_attached?
     image.attached?
   end
+
+  def sold_out?
+    sold.present? && sold
+  end
+  
 end
 
 # , numericality: { other_than: 0 }
