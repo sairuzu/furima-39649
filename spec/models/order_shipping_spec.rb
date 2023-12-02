@@ -32,10 +32,16 @@ RSpec.describe OrderShipping, type: :model do
         expect(@order_shipping.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
       
-      it '都道府県に「---」が選択されている場合は購入できないこと' do
+      it '都道府県は空では購入できないこと' do
         @order_shipping.prefecture_id = ' '
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
+      it '都道府県に「---」が選択されている場合は購入できないこと' do
+        @order_shipping.prefecture_id = '---'
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Prefecture is reserved")
       end
       
       it '市区町村が空だと購入できないこと' do
