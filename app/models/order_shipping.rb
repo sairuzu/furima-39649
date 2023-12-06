@@ -4,10 +4,10 @@ class OrderShipping
                 :item_id, :user_id, :token
   
   with_options presence: true do
-    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
+    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'は(-)を使用してください' }
     validates :prefecture_id, exclusion: { in: ['---'] }
     validates :municipalities, :street_address
-    validates :telephone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Please enter numbers only' }, length: { in: 10..11 }
+    validates :telephone_number, format: { with: /\A[0-9]+\z/, message: 'は半角数字のみを使用してください' }, length: { in: 10..11 }
     validates :user_id
     validates :item_id
     validates :token

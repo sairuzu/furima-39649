@@ -20,13 +20,13 @@ class Item < ApplicationRecord
   validates :prefecture_id, presence: true, exclusion: { in: ['---'] }
   validates :shipping_day_id, presence: true, exclusion: { in: ['---'] }
 
-  with_options presence: true, format: { with: /\A[0-9]+\z/, message: '半角数値のみを使用してください' } do
+  with_options presence: true, format: { with: /\A[0-9]+\z/, message: 'は半角数値のみを使用してください' } do
     validates :price
   end
   validates :price, numericality: { only_integer: true,
                                     greater_than_or_equal_to: 300,
                                     less_than_or_equal_to: 9_999_999,
-                                    message: 'must be between ¥300 and ¥9,999,999' }
+                                    message: 'は¥300 から ¥9,999,999までの間の数字を入力してください' }
 
   validates :image, presence: true
   def was_attached?
