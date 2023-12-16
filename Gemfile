@@ -91,3 +91,7 @@ gem 'payjp'
 gem 'gon'
 gem 'rails-i18n'
 gem "aws-sdk-s3", require: false
+
+group :production do
+  gem 'unicorn', '6.1.0'
+end
